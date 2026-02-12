@@ -1,0 +1,47 @@
+
+
+TASK 1 — LOGIN
+
+
+Command:
+curl -X POST http://localhost:3000/auth/login \
+-H "Content-Type: application/json" \
+-d '{"email":"ashutosh@example.com","password":"password123"}'
+
+Output:
+{"message":"OTP sent","loginSessionId":"hlemd"}
+
+
+
+TASK 2 — OTP VERIFY
+
+
+Command:
+curl -c cookies.txt -X POST http://localhost:3000/auth/verify-otp \
+-H "Content-Type: application/json" \
+-d '{"loginSessionId":"hlemd","otp":"421110"}'
+
+Output:
+{"message":"OTP verified","sessionId":"hlemd"}
+
+
+
+TASK 3 — TOKEN
+
+
+Command:
+curl -b cookies.txt -X POST http://localhost:3000/auth/token
+
+Output:
+{"access_token":"eyJhbGciOiJIUzI1NiIs...","expires_in":900}
+
+
+
+TASK 4 — PROTECTED ROUTE
+
+
+Command:
+curl -H "Authorization: Bearer <TOKEN>" http://localhost:3000/protected
+
+Output:
+{"message":"Access granted","user":{"email":"ashutosh@example.com"},"success_flag":"FLAG-YXNodXRvc2hAZXhhbXBsZS5jb21fQ09NUExFVEVEX0FTU0lHTk1FTlQ="}
